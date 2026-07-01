@@ -138,3 +138,17 @@ Categories & counts: `01 work` (8) · `02 cabinet` (6) · `03 sink` (5) · `04 s
 3. Rebuild the size-selection + quote-list (persisted) + LINE deep-link submit.
 4. Add the About page + map.
 5. Then: real photos, EN toggle, and a proper quote-submission backend.
+
+---
+
+## Deployment (current)
+The design-reference files are served **as-is** on **Cloudflare** (Workers static assets) — no build step. The `.dc.html` files render client-side via `support.js`; `index.html`/`about.html` are clean-URL copies of `BTM Website.dc.html`/`BTM About.dc.html` so `/` resolves. This is a temporary host until the Next.js rebuild above replaces it.
+
+- **Repo:** `github.com/TepManutham/btm-stainless-website` (branch `main`)
+- **Host:** Cloudflare Workers, project `btm-stainless-website`, connected to the GitHub repo
+- **Config:** [`wrangler.jsonc`](wrangler.jsonc) — serves the repo root as static assets (`assets.directory: "."`)
+- **Deploy:** automatic on every `git push` to `main` (Cloudflare runs `npx wrangler deploy`)
+
+```sh
+git add -A && git commit -m "message" && git push   # → auto-builds & redeploys
+```
