@@ -237,7 +237,8 @@ details.dc-menu>summary::marker{content:""}
 <input type="text" onInput="{{ onName }}" placeholder="ชื่อผู้ติดต่อ" style="width:100%;height:46px;padding:0 14px;border:1.5px solid rgba(0,0,0,.16);border-radius:11px;background:#fff;font:500 14px 'IBM Plex Sans Thai',sans-serif;outline:none"/>
 <input type="tel" inputmode="tel" onInput="{{ onPhone }}" placeholder="เบอร์โทรกลับ" style="width:100%;height:46px;padding:0 14px;border:1.5px solid rgba(0,0,0,.16);border-radius:11px;background:#fff;font:500 14px 'IBM Plex Mono',monospace;outline:none"/>
 <div style="font:400 11.5px/1.5 'IBM Plex Sans Thai',sans-serif;color:#9a978d;margin-top:-2px">กรอกชื่อและเบอร์เพื่อให้เราติดต่อกลับ แล้วส่งทาง LINE</div>
-<a href="{{ quoteHref }}" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;background:#06C755;color:#fff;border-radius:11px;text-decoration:none;font:700 16px 'IBM Plex Sans Thai',sans-serif">ส่งคำขอทั้งหมดทาง LINE</a>
+<sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}"><div style="font:600 12.5px/1.5 'IBM Plex Sans Thai',sans-serif;color:#e8552d;margin-top:-2px">กรุณากรอกชื่อและเบอร์โทรกลับให้ถูกต้องก่อนส่ง</div></sc-if>
+<button onClick="{{ submitQuote }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;width:100%;background:#06C755;color:#fff;border:none;border-radius:11px;font:700 16px 'IBM Plex Sans Thai',sans-serif;cursor:pointer">ส่งคำขอทั้งหมดทาง LINE</button>
 <div style="display:flex;gap:10px">
 <a href="tel:0971954462" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:1.5px solid rgba(0,0,0,.16);border-radius:11px;text-decoration:none;color:#17181c;font:600 14px 'IBM Plex Sans Thai',sans-serif">☎ โทรสั่ง</a>
 <button onClick="{{ clearQuote }}" style="padding:13px 16px;border:1.5px solid rgba(0,0,0,.16);background:#fff;border-radius:11px;color:#9a978d;font:600 14px 'IBM Plex Sans Thai',sans-serif;cursor:pointer">ล้าง</button>
@@ -250,7 +251,7 @@ details.dc-menu>summary::marker{content:""}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { q:'', cat:'all', sel:{}, pi:{}, quote:[], drawer:false, name:'', phone:'' };
+  state = { q:'', cat:'all', sel:{}, pi:{}, quote:[], drawer:false, name:'', phone:'', err:false };
   componentDidMount(){ try{ const q=JSON.parse(localStorage.getItem('btm_quote')||'[]'); if(Array.isArray(q)&&q.length) this.setState({quote:q}); }catch(e){} }
   save(q){ try{ localStorage.setItem('btm_quote', JSON.stringify(q)); }catch(e){} }
   ri(p){ return (typeof window!=='undefined'&&window.__IMG&&window.__IMG[p])?window.__IMG[p]:p; }
@@ -332,6 +333,7 @@ class Component extends DCLogic {
   toggleDrawer(){ this.setState(s=>({drawer:!s.drawer})); }
   closeDrawer(){ this.setState({drawer:false}); }
   lineHref(){ const q=this.state.quote; const nm=(this.state.name||'').trim(); const ph=(this.state.phone||'').trim(); let m='สวัสดีครับ/ค่ะ สนใจขอใบเสนอราคาสินค้า BTM\n\n'; m+='ชื่อ: '+(nm||'-')+'\nเบอร์โทรกลับ: '+(ph||'-')+'\n\n'; if(!q.length){ m+='(ยังไม่ได้เลือกรายการ)'; } else { q.forEach((e,i)=>{ m+=(i+1)+'. '+e.sku+' '+e.name+' — '+e.label+'\n'; }); } m+='\nรบกวนเสนอราคาด้วยครับ/ค่ะ'; return 'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent(m); }
+  submitQuote(){ const nm=(this.state.name||'').trim(); const ph=(this.state.phone||'').trim(); const digits=ph.replace(/\D/g,''); if(!nm||digits.length<9){ this.setState({err:true}); return; } this.setState({err:false}); const w=window.open(this.lineHref(),'_blank'); if(!w){ window.location.href=this.lineHref(); } }
   renderVals(){
     const data=this.buildData(), VC=this.vc();
     const q=this.norm(this.state.q), cat=this.state.cat;
@@ -357,7 +359,8 @@ class Component extends DCLogic {
       heroDraw:this.ri('catalog/d/RG-02.png'),
       cats, filterChips,
       onSearch:(e)=>this.setState({q:e.target.value}),
-      onName:(e)=>this.setState({name:e.target.value}), onPhone:(e)=>this.setState({phone:e.target.value}),
+      onName:(e)=>this.setState({name:e.target.value,err:false}), onPhone:(e)=>this.setState({phone:e.target.value,err:false}),
+      submitQuote:()=>this.submitQuote(), showErr:this.state.err,
       quoteCount:this.state.quote.length, hasQuote:this.state.quote.length>0, noQuote:this.state.quote.length===0,
       quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent('สวัสดีครับ/ค่ะ สอบถามสินค้าสแตนเลส BTM'),
       drawer:this.state.drawer, toggleDrawer:()=>this.toggleDrawer(), closeDrawer:()=>this.closeDrawer(), clearQuote:()=>this.clearQuote()
