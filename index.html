@@ -311,7 +311,7 @@ class Component extends DCLogic {
   clearQuote(){ this.save([]); this.setState({quote:[]}); }
   toggleDrawer(){ this.setState(s=>({drawer:!s.drawer})); }
   closeDrawer(){ this.setState({drawer:false}); }
-  lineHref(){ const q=this.state.quote; let m='สวัสดีครับ/ค่ะ สนใจขอใบเสนอราคาสินค้า BTM\n\n'; if(!q.length){ m+='(ยังไม่ได้เลือกรายการ)'; } else { q.forEach((e,i)=>{ m+=(i+1)+'. '+e.sku+' '+e.name+' — '+e.label+'\n'; }); } m+='\nรบกวนเสนอราคาด้วยครับ/ค่ะ'; return 'https://line.me/R/msg/text/?'+encodeURIComponent(m); }
+  lineHref(){ const q=this.state.quote; let m='สวัสดีครับ/ค่ะ สนใจขอใบเสนอราคาสินค้า BTM\n\n'; if(!q.length){ m+='(ยังไม่ได้เลือกรายการ)'; } else { q.forEach((e,i)=>{ m+=(i+1)+'. '+e.sku+' '+e.name+' — '+e.label+'\n'; }); } m+='\nรบกวนเสนอราคาด้วยครับ/ค่ะ'; return 'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent(m); }
   renderVals(){
     const data=this.buildData(), VC=this.vc();
     const q=this.norm(this.state.q), cat=this.state.cat;
@@ -338,7 +338,7 @@ class Component extends DCLogic {
       cats, filterChips,
       onSearch:(e)=>this.setState({q:e.target.value}),
       quoteCount:this.state.quote.length, hasQuote:this.state.quote.length>0, noQuote:this.state.quote.length===0,
-      quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/ti/p/~tepktm',
+      quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent('สวัสดีครับ/ค่ะ สอบถามสินค้าสแตนเลส BTM'),
       drawer:this.state.drawer, toggleDrawer:()=>this.toggleDrawer(), closeDrawer:()=>this.closeDrawer(), clearQuote:()=>this.clearQuote()
     };
   }
