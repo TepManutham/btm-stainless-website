@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git config *)",
+      "Bash(echo \"user.name: $\\(git config user.name || echo UNSET\\)\")",
+      "Bash(echo \"user.email: $\\(git config user.email || echo UNSET\\)\")",
+      "Bash(git --version)",
+      "Bash(echo \"git version: $\\(git --version\\)\")",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git rm *)"
+    ]
+  }
+}

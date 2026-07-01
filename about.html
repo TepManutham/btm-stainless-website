@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anuphan:wght@400;500;600;700;800&family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#ecebe7;font-family:'IBM Plex Sans Thai',system-ui,sans-serif;color:#17181c;-webkit-font-smoothing:antialiased}
+::selection{background:#e8552d;color:#fff}
+.blux{background-image:linear-gradient(rgba(0,0,0,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(0,0,0,.05) 1px,transparent 1px);background-size:22px 22px}
+@media(max-width:820px){
+ .hide-sm{display:none!important}
+ .hero-grid{grid-template-columns:1fr!important;gap:28px!important;padding:44px 18px 40px!important}
+ .hero-grid h1{font-size:40px!important}
+ .g4{grid-template-columns:1fr 1fr!important}
+ .g3{grid-template-columns:1fr!important}
+ .contact-grid{grid-template-columns:1fr!important}
+ .foot-grid{grid-template-columns:1fr!important;gap:26px!important}
+ .sec-pad{padding-left:18px!important;padding-right:18px!important}
+}
+</style>
+<script src="image-slot.js"></script>
+</helmet>
+
+<div style="min-height:100vh">
+
+<!-- HEADER -->
+<div style="position:sticky;top:0;z-index:60;background:rgba(23,24,28,.96);backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,255,255,.08)">
+<div class="sec-pad" style="max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;gap:16px">
+<a href="index.html" style="display:flex;align-items:center;gap:10px;text-decoration:none;flex:none">
+<svg width="30" height="27" viewBox="0 0 94 86" fill="none"><rect x="9" y="22" width="76" height="9" rx="2.5" fill="#e8552d"/><g stroke="#fff" stroke-width="6" stroke-linecap="round"><line x1="19" y1="33" x2="19" y2="70"/><line x1="75" y1="33" x2="75" y2="70"/><line x1="19" y1="55" x2="75" y2="55"/></g></svg>
+<span style="display:inline-flex;align-items:flex-end;gap:2px;font:800 19px 'Anuphan',sans-serif;color:#fff;letter-spacing:.01em">BTM<span style="width:6px;height:6px;background:#e8552d;border-radius:1px;margin-bottom:5px"></span></span>
+</a>
+<div style="flex:1"></div>
+<a href="index.html#catalogue" class="hide-sm" style="font:600 14px 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.8);text-decoration:none">สินค้า</a>
+<a href="#contact" class="hide-sm" style="font:600 14px 'IBM Plex Sans Thai',sans-serif;color:#fff;text-decoration:none;border-bottom:2px solid #e8552d;padding-bottom:3px">ติดต่อ</a>
+<a href="tel:0922303772" class="hide-sm" style="display:flex;align-items:center;gap:8px;height:38px;padding:0 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;text-decoration:none;color:#fff;font:600 13px 'IBM Plex Mono',monospace">☎ 092-230-3772</a>
+<a href="https://line.me/R/msg/text/?%E0%B8%AA%E0%B8%AD%E0%B8%9A%E0%B8%96%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B9%89%E0%B8%B2%20BTM" target="_blank" style="display:flex;align-items:center;height:38px;padding:0 16px;border-radius:999px;background:#06C755;color:#fff;text-decoration:none;font:700 13px 'IBM Plex Sans Thai',sans-serif">LINE</a>
+</div>
+</div>
+
+<!-- HERO -->
+<div style="background:#17181c;color:#fff">
+<div class="hero-grid sec-pad" style="max-width:1240px;margin:0 auto;padding:66px 24px 60px;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center">
+<div>
+<div style="display:inline-flex;align-items:center;gap:10px;font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.18em;color:#e8552d;margin-bottom:22px"><span style="width:26px;height:2px;background:#e8552d"></span>เกี่ยวกับเรา · ABOUT US</div>
+<h1 style="font:800 52px/1.08 'Anuphan',sans-serif;letter-spacing:-.015em;margin:0 0 22px">ผู้ผลิตครุภัณฑ์<br>สแตนเลส<span style="color:#e8552d">ตามสั่ง</span></h1>
+<p style="font:400 17px/1.78 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.72);margin:0 0 26px;max-width:460px">หจก. บัวทอง เมททัล (BTM) ผลิตและจำหน่ายครุภัณฑ์สแตนเลสและเครื่องครัวเกรดอาหารสำหรับห้องอาหาร ภัตตาคาร โรงแรม และโรงพยาบาล มากว่า 20 ปี — รับตัด–พับ งานเชื่อมต่อเนื่อง ผลิตจาก SUS304 (มีรุ่น SUS316) ปรับขนาดตามหน้างานจริง</p>
+<div style="display:flex;gap:9px;flex-wrap:wrap">
+<span style="font:600 12px 'IBM Plex Sans Thai',sans-serif;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff">เปิดมากว่า 20 ปี</span>
+<span style="font:600 12px 'IBM Plex Sans Thai',sans-serif;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff">ช่างมืออาชีพ</span>
+<span style="font:600 12px 'IBM Plex Sans Thai',sans-serif;padding:8px 15px;border:1px solid rgba(255,255,255,.28);border-radius:999px;color:#fff">ราคาโรงงาน</span>
+</div>
+</div>
+<div class="blux" style="background:#f4f3ef;border:1px solid rgba(255,255,255,.14);border-radius:16px;aspect-ratio:4/3;overflow:hidden">
+<image-slot id="about-hero" shape="rect" fit="cover" placeholder="วางรูปโรงงาน / หน้าร้าน" style="display:block;width:100%;height:100%"></image-slot>
+</div>
+</div>
+</div>
+
+<!-- WHAT WE DO -->
+<div class="sec-pad" style="max-width:1240px;margin:0 auto;padding:52px 24px 8px">
+<div style="font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#e8552d;margin-bottom:22px">สิ่งที่เราทำ · WHAT WE DO</div>
+<div class="g4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+<div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:24px"><div style="font:800 30px 'Anuphan',sans-serif;color:#e8552d;margin-bottom:12px">01</div><div style="font:600 17px 'Anuphan',sans-serif;margin-bottom:5px">ออกแบบ &amp; ผลิตตามสั่ง</div><div style="font:400 13px/1.65 'IBM Plex Sans Thai',sans-serif;color:#5a584f">ผลิตตามแบบและขนาดพื้นที่จริง ทุกชิ้นปรับได้</div></div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:24px"><div style="font:800 30px 'Anuphan',sans-serif;color:#e8552d;margin-bottom:12px">02</div><div style="font:600 17px 'Anuphan',sans-serif;margin-bottom:5px">ตัด–พับแผ่นโลหะ</div><div style="font:400 13px/1.65 'IBM Plex Sans Thai',sans-serif;color:#5a584f">งานตัด พับ และขึ้นรูปแผ่นสแตนเลสแม่นยำ</div></div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:24px"><div style="font:800 30px 'Anuphan',sans-serif;color:#e8552d;margin-bottom:12px">03</div><div style="font:600 17px 'Anuphan',sans-serif;margin-bottom:5px">งานเชื่อมเกรดอาหาร</div><div style="font:400 13px/1.65 'IBM Plex Sans Thai',sans-serif;color:#5a584f">งานเชื่อมต่อเนื่อง เรียบ สะอาด ปลอดภัย</div></div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:24px"><div style="font:800 30px 'Anuphan',sans-serif;color:#e8552d;margin-bottom:12px">04</div><div style="font:600 17px 'Anuphan',sans-serif;margin-bottom:5px">ติดตั้งหน้างาน</div><div style="font:400 13px/1.65 'IBM Plex Sans Thai',sans-serif;color:#5a584f">ส่งและติดตั้งถึงหน้างาน พร้อมรับประกัน</div></div>
+</div>
+</div>
+
+<!-- STATS -->
+<div class="sec-pad" style="max-width:1240px;margin:0 auto;padding:40px 24px">
+<div style="background:#17181c;color:#fff;border-radius:16px;padding:38px 34px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px" class="g4">
+<div><div style="font:800 30px 'Anuphan',sans-serif;color:#fff">SUS304/316</div><div style="font:500 12px 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.6);margin-top:3px">สแตนเลสเกรดอาหาร</div></div>
+<div><div style="font:800 30px 'Anuphan',sans-serif;color:#fff">47 <span style="color:#e8552d">แบบ</span></div><div style="font:500 12px 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.6);margin-top:3px">ใน 6 หมวดสินค้า</div></div>
+<div><div style="font:800 30px 'Anuphan',sans-serif;color:#fff">20<span style="color:#e8552d">+</span> ปี</div><div style="font:500 12px 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.6);margin-top:3px">ประสบการณ์ผลิต</div></div>
+<div><div style="font:800 30px 'Anuphan',sans-serif;color:#fff">รับประกัน</div><div style="font:500 12px 'IBM Plex Sans Thai',sans-serif;color:rgba(255,255,255,.6);margin-top:3px">คุณภาพงานทุกชิ้น</div></div>
+</div>
+</div>
+
+<!-- CONTACT + MAP -->
+<div id="contact" class="sec-pad" style="max-width:1240px;margin:0 auto;padding:24px 24px 8px;scroll-margin-top:80px">
+<div style="font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.2em;color:#e8552d;margin-bottom:22px">ที่ตั้งโรงงาน · FIND US</div>
+<div class="contact-grid" style="display:grid;grid-template-columns:.85fr 1.15fr;gap:22px;align-items:stretch">
+<div style="background:#fff;border:1px solid rgba(0,0,0,.09);border-radius:14px;padding:28px;display:flex;flex-direction:column">
+<h2 style="font:800 24px 'Anuphan',sans-serif;margin:0 0 4px">บัวทอง เมททัล</h2>
+<div style="font:500 12px 'IBM Plex Mono',monospace;color:#e8552d;margin-bottom:20px">BUATONG METAL LTD., PART.</div>
+<div style="font:400 15px/1.85 'IBM Plex Sans Thai',sans-serif;color:#3c3b35;margin-bottom:22px">68 หมู่ 9 ตำบลบางคูรัด<br>อำเภอบางบัวทอง จังหวัดนนทบุรี 11110</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-top:auto">
+<div style="display:flex;gap:9px">
+<a href="tel:0922303772" style="flex:1;display:flex;align-items:center;gap:9px;padding:13px 15px;background:#17181c;color:#fff;border-radius:11px;text-decoration:none"><span style="font-size:17px">☎</span><span style="line-height:1.15"><span style="display:block;font:700 15px 'IBM Plex Mono',monospace">092-230-3772</span><span style="display:block;font:500 10px 'IBM Plex Sans Thai',sans-serif;opacity:.7">คุณป้อม</span></span></a>
+<a href="tel:0936656450" style="flex:1;display:flex;align-items:center;gap:9px;padding:13px 15px;border:1.5px solid rgba(0,0,0,.16);color:#17181c;border-radius:11px;text-decoration:none"><span style="font-size:17px">☎</span><span style="line-height:1.15"><span style="display:block;font:700 15px 'IBM Plex Mono',monospace">093-665-6450</span><span style="display:block;font:500 10px 'IBM Plex Sans Thai',sans-serif;opacity:.6">คุณน้ำ</span></span></a>
+</div>
+<a href="https://line.me/R/msg/text/?%E0%B8%AA%E0%B8%AD%E0%B8%9A%E0%B8%96%E0%B8%B2%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%99%E0%B8%84%E0%B9%89%E0%B8%B2%20BTM" target="_blank" style="display:flex;align-items:center;justify-content:center;padding:14px;background:#06C755;color:#fff;border-radius:11px;text-decoration:none;font:700 15px 'IBM Plex Sans Thai',sans-serif;letter-spacing:.05em">แชทผ่าน LINE</a>
+<div style="display:flex;gap:9px">
+<a href="mailto:buatongm@hotmail.com" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border:1.5px solid rgba(0,0,0,.16);border-radius:11px;text-decoration:none;color:#3c3b35;font:500 13px 'IBM Plex Sans Thai',sans-serif">✉ อีเมล</a>
+<a href="https://maps.app.goo.gl/rTsRaiRYpxPfNiDT9" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;border:1.5px solid rgba(0,0,0,.16);border-radius:11px;text-decoration:none;color:#3c3b35;font:500 13px 'IBM Plex Sans Thai',sans-serif">⌖ เส้นทาง</a>
+</div>
+</div>
+</div>
+<a href="https://maps.app.goo.gl/rTsRaiRYpxPfNiDT9" target="_blank" style="position:relative;display:block;border-radius:14px;overflow:hidden;border:1px solid rgba(0,0,0,.09);min-height:420px;background:#e9e7e0;text-decoration:none">
+<iframe title="BTM" src="https://www.google.com/maps?q=%E0%B8%95%E0%B8%B3%E0%B8%9A%E0%B8%A5%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%84%E0%B8%B9%E0%B8%A3%E0%B8%B1%E0%B8%94%20%E0%B8%9A%E0%B8%B2%E0%B8%87%E0%B8%9A%E0%B8%B1%E0%B8%A7%E0%B8%97%E0%B8%AD%E0%B8%87%20%E0%B8%99%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5%2011110&output=embed" width="100%" height="100%" style="border:0;display:block;min-height:420px;pointer-events:none" loading="lazy"></iframe>
+<span style="position:absolute;right:14px;bottom:14px;display:inline-flex;align-items:center;gap:7px;padding:10px 15px;background:#17181c;color:#fff;border-radius:10px;font:700 13px 'IBM Plex Sans Thai',sans-serif;box-shadow:0 6px 18px rgba(0,0,0,.25)">⌖ เปิดใน Google Maps</span>
+</a>
+</div>
+</div>
+
+<!-- FOOTER -->
+<div style="background:#101114;color:#b7b5ad;margin-top:52px">
+<div class="foot-grid sec-pad" style="max-width:1240px;margin:0 auto;padding:52px 24px 30px;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:40px">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><svg width="30" height="27" viewBox="0 0 94 86" fill="none"><rect x="9" y="22" width="76" height="9" rx="2.5" fill="#e8552d"/><g stroke="#fff" stroke-width="6" stroke-linecap="round"><line x1="19" y1="33" x2="19" y2="70"/><line x1="75" y1="33" x2="75" y2="70"/><line x1="19" y1="55" x2="75" y2="55"/></g></svg><span style="display:inline-flex;align-items:flex-end;gap:2px;font:800 18px 'Anuphan',sans-serif;color:#fff">BTM<span style="width:5px;height:5px;background:#e8552d;border-radius:1px;margin-bottom:4px"></span></span></div>
+<p style="font:400 13.5px/1.75 'IBM Plex Sans Thai',sans-serif;color:#8a887f;margin:0;max-width:340px">หจก. บัวทอง เมททัล — ครุภัณฑ์สแตนเลสเกรดอาหารสำหรับร้านอาหาร โรงแรม และโรงพยาบาล</p>
+</div>
+<div>
+<div style="font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#57564f;margin-bottom:13px">ติดต่อ</div>
+<div style="font:400 14px/2 'IBM Plex Sans Thai',sans-serif;color:#dcdad3">092-230-3772 (คุณป้อม)<br>093-665-6450 (คุณน้ำ)<br>buatongm@hotmail.com</div>
+</div>
+<div>
+<div style="font:600 11px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#57564f;margin-bottom:13px">เมนู</div>
+<div style="font:400 14px/2 'IBM Plex Sans Thai',sans-serif;color:#dcdad3"><a href="index.html#catalogue" style="color:#dcdad3;text-decoration:none">แคตตาล็อกสินค้า</a><br><a href="#contact" style="color:#dcdad3;text-decoration:none">ติดต่อ &amp; แผนที่</a></div>
+</div>
+</div>
+<div class="sec-pad" style="max-width:1240px;margin:0 auto;padding:0 24px 30px"><div style="border-top:1px solid rgba(255,255,255,.08);padding-top:18px;font:400 12px 'IBM Plex Sans Thai',sans-serif;color:#57564f">© 2026 ห้างหุ้นส่วนจำกัด บัวทอง เมททัล (BTM)</div></div>
+</div>
+
+</div>
+
+<template id="__bundler_thumbnail" data-bg-color="#17181c">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#17181c"/><rect x="486" y="300" width="228" height="26" rx="6" fill="#e8552d"/><g stroke="#fff" stroke-width="16" stroke-linecap="round"><line x1="516" y1="326" x2="516" y2="430"/><line x1="684" y1="326" x2="684" y2="430"/><line x1="516" y1="388" x2="684" y2="388"/></g><text x="600" y="540" font-family="sans-serif" font-size="60" font-weight="800" fill="#fff" text-anchor="middle">ABOUT BTM</text></svg>
+</template>
+</x-dc>
+</body>
+</html>
