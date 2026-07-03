@@ -148,7 +148,7 @@ details.dc-menu>summary::marker{content:""}
 <sc-for list="{{ it.chips }}" as="ch" hint-placeholder-count="6"><button onClick="{{ ch.toggle }}" style="font:600 13px 'IBM Plex Mono',monospace;color:{{ ch.fg }};background:{{ ch.bg }};border:1.5px solid {{ ch.bd }};border-radius:8px;padding:6px 11px;cursor:pointer">{{ ch.label }}</button></sc-for>
 </div>
 <sc-if value="{{ it.hasMeta }}" hint-placeholder-val="{{ false }}"><div style="font:500 12px 'IBM Plex Sans Thai',sans-serif;color:#8A897F;margin-top:11px">{{ it.meta }}</div></sc-if>
-<button onClick="{{ it.add }}" style="margin-top:auto;width:100%;padding:13px;border:none;border-radius:10px;background:{{ it.addBg }};color:{{ it.addFg }};font:600 15px 'IBM Plex Sans Thai',sans-serif;cursor:pointer;margin-top:16px">{{ it.addLabel }}</button>
+<button onClick="{{ it.add }}" style="margin-top:16px;width:100%;padding:13px;border:none;border-radius:10px;background:{{ it.addBg }};color:{{ it.addFg }};font:600 15px 'IBM Plex Sans Thai',sans-serif;cursor:pointer;margin-top:auto">{{ it.addLabel }}</button>
 </div>
 </div>
 </sc-for>
