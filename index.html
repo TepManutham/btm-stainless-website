@@ -121,13 +121,12 @@ details.dc-menu>summary::marker{content:""}
 
 <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
 <div id="cat-{{ c.key }}" style="padding-top:30px">
-<div style="position:relative;height:196px;border-radius:16px;overflow:hidden;margin-bottom:22px;background:#F8F7F3;border:1px solid #E5E4DF">
-<image-slot id="cover-{{ c.key }}" shape="rect" fit="cover" placeholder="วางรูป {{ c.th }}" style="position:absolute;inset:0;display:block;width:100%;height:100%"></image-slot>
-<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(248,247,243,.94) 0%,rgba(248,247,243,.6) 45%,rgba(248,247,243,0) 100%);pointer-events:none"></div>
-<div style="position:absolute;left:28px;bottom:24px;pointer-events:none">
-<div style="display:inline-flex;align-items:center;gap:8px;font:600 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#29527D;margin-bottom:8px"><span style="width:22px;height:2px;background:#29527D"></span>{{ c.enLabel }}</div>
-<div style="display:flex;align-items:baseline;gap:12px"><span style="font:600 28px 'Anuphan',sans-serif;color:rgba(28,28,26,.35)">{{ c.num }}</span><span style="font:600 28px 'Anuphan',sans-serif;color:#1C1C1A;letter-spacing:-.01em">{{ c.th }}</span></div>
-</div>
+<div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding-bottom:14px;border-bottom:1px solid #E5E4DF;margin-bottom:22px">
+<span style="font:600 22px 'Anuphan',sans-serif;color:#29527D">{{ c.num }}</span>
+<span style="font:600 22px 'Anuphan',sans-serif;color:#1C1C1A;letter-spacing:-.01em">{{ c.th }}</span>
+<span style="font:500 12px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#8A897F">{{ c.enLabel }}</span>
+<span style="flex:1;min-width:20px"></span>
+<span style="font:500 13px 'IBM Plex Sans Thai',sans-serif;color:#8A897F;white-space:nowrap">{{ c.count }} แบบ</span>
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:18px">
 <sc-for list="{{ c.items }}" as="it" hint-placeholder-count="4">
@@ -349,7 +348,7 @@ class Component extends DCLogic {
         const sc=selSizes.length;
         return {sku:it.sku,th:it.th,en:it.en,src:this.ri(src),imgFit:isPhoto?'cover':'contain',imgBlend:isPhoto?'normal':'multiply',dots,hasDots:n>1,chips,sizeLabel:it.full?'เลือกขนาด (มม.)':'เลือกความกว้าง (มม.)',meta,hasMeta:!!meta,addLabel:sc?('เพิ่มลงคำขอ · '+sc):'เลือกขนาดก่อน',addBg:sc?'#29527D':'#EEEDE9',addFg:sc?'#fff':'#8A897F',add:()=>this.addItem(it)};
       });
-      return {key:c.key,num:c.num,th:c.th,enLabel:c.enLabel,items};
+      return {key:c.key,num:c.num,th:c.th,enLabel:c.enLabel,items,count:items.length};
     }).filter(c=>c.items.length>0);
     const chipDefs=[{key:'all',label:'ทั้งหมด'}].concat(data.map(c=>({key:c.key,label:c.th})));
     const filterChips=chipDefs.map(d=>{ const a=cat===d.key; return {label:d.label,on:()=>this.setState({cat:d.key}),bg:a?'#1C1C1A':'#fff',fg:a?'#fff':'#57574F',bd:a?'#1C1C1A':'#E5E4DF'}; });
