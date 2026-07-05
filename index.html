@@ -235,6 +235,7 @@ details.dc-menu>summary::marker{content:""}
 </sc-for>
 </div>
 <div style="padding:16px 22px;border-top:1px solid #E5E4DF;display:flex;flex-direction:column;gap:10px">
+<button onClick="{{ copyQuote }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;width:100%;background:#29527D;color:#fff;border:none;border-radius:11px;font:600 16px 'IBM Plex Sans Thai',sans-serif;cursor:pointer">⧉ {{ copyLabel }}</button>
 <button onClick="{{ submitQuote }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;width:100%;background:#06C755;color:#fff;border:none;border-radius:11px;font:600 16px 'IBM Plex Sans Thai',sans-serif;cursor:pointer">{{ t.drawerSubmit }}</button>
 <div style="display:flex;gap:10px">
 <a href="tel:0922303772" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:1.5px solid #E5E4DF;border-radius:11px;text-decoration:none;color:#1C1C1A;font:600 14px 'IBM Plex Sans Thai',sans-serif">{{ t.drawerCall }}</a>
@@ -248,7 +249,7 @@ details.dc-menu>summary::marker{content:""}
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { q:'', cat:'all', sel:{}, pi:{}, quote:[], drawer:false, name:'', phone:'', err:false, lang:'th' };
+  state = { q:'', cat:'all', sel:{}, pi:{}, quote:[], drawer:false, name:'', phone:'', err:false, lang:'th', copied:false };
   componentDidMount(){ try{ const q=JSON.parse(localStorage.getItem('btm_quote')||'[]'); if(Array.isArray(q)&&q.length) this.setState({quote:q}); }catch(e){} try{ const lg=localStorage.getItem('btm_lang'); if(lg==='en'||lg==='th') this.setState({lang:lg}); }catch(e){} }
   save(q){ try{ localStorage.setItem('btm_quote', JSON.stringify(q)); }catch(e){} }
   ri(p){ return (typeof window!=='undefined'&&window.__IMG&&window.__IMG[p])?window.__IMG[p]:p; }
@@ -331,6 +332,10 @@ class Component extends DCLogic {
   closeDrawer(){ this.setState({drawer:false}); }
   lineHref(){ return 'https://line.me/ti/p/~tepktm'; }
   submitQuote(){ const w=window.open(this.lineHref(),'_blank'); if(!w){ window.location.href=this.lineHref(); } }
+  quoteText(){ const q=this.state.quote; let m='สนใจขอใบเสนอราคาสินค้า BTM\n\n'; if(!q.length){ m+='(ยังไม่ได้เลือกรายการ)'; } else { q.forEach((e,i)=>{ m+=(i+1)+'. '+e.sku+' '+e.name+' — '+e.label+'\n'; }); } m+='\nรบกวนเสนอราคาด้วยครับ/ค่ะ'; return m; }
+  copyDone(){ this.setState({copied:true}); setTimeout(()=>this.setState({copied:false}),2000); }
+  copyQuote(){ const txt=this.quoteText(); try{ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(()=>this.copyDone(),()=>this.fallbackCopy(txt)); return; } }catch(e){} this.fallbackCopy(txt); }
+  fallbackCopy(txt){ try{ const ta=document.createElement('textarea'); ta.value=txt; ta.style.position='fixed'; ta.style.top='-1000px'; document.body.appendChild(ta); ta.focus(); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); this.copyDone(); }catch(e){} }
   toggleLang(){ const l=this.state.lang==='en'?'th':'en'; try{localStorage.setItem('btm_lang',l);}catch(e){} this.setState({lang:l}); }
   T(){ return {
     th:{navProducts:'สินค้า',navSteps:'ขั้นตอน',navAbout:'เกี่ยวกับเรา',menuAbout:'เกี่ยวกับเรา & ติดต่อ',quoteBtn:'คำขอราคา',
@@ -349,7 +354,7 @@ class Component extends DCLogic {
       stickyLabel:'รายการในคำขอราคา',stickyView:'ดูรายการ',stickySend:'ส่งคำขอ →',
       drawerTitle:'คำขอใบเสนอราคา',emptyT:'ยังไม่มีรายการ',emptyD:'เลือกขนาดสินค้าแล้วกดเพิ่มลงคำขอ',namePh:'ชื่อผู้ติดต่อ',phonePh:'เบอร์โทรกลับ',
       drawerHint:'กรอกชื่อและเบอร์เพื่อให้เราติดต่อกลับ แล้วส่งทาง LINE',drawerErr:'กรุณากรอกชื่อและเบอร์โทรกลับให้ถูกต้องก่อนส่ง',
-      drawerSubmit:'แอด LINE เพื่อสั่งซื้อ',drawerCall:'☎ โทรสั่ง',drawerClear:'ล้าง',drawerHint2:'กดเพื่อแอด LINE ของเรา แล้วส่งรายการที่เลือกให้เราในแชต',
+      drawerSubmit:'แอด LINE เพื่อสั่งซื้อ',drawerCall:'☎ โทรสั่ง',drawerClear:'ล้าง',copyBtn:'คัดลอกรายการ',copiedBtn:'คัดลอกแล้ว ✓',drawerHint2:'1) คัดลอกรายการ  2) แอด LINE  3) วางในแชตแล้วส่งให้เรา',
       unit:'แบบ',selWidth:'เลือกความกว้าง (มม.)',selSize:'เลือกขนาด (มม.)',addPrefix:'เพิ่มลงคำขอ · ',addEmpty:'เลือกขนาดก่อน',metaD:'ลึก ',metaH:' · สูง ',metaU:' มม.',all:'ทั้งหมด'},
     en:{navProducts:'Products',navSteps:'How it works',navAbout:'About',menuAbout:'About & Contact',quoteBtn:'Quote',
       heroKicker:'STAINLESS FABRICATION · SINCE 2002',heroA:'Custom stainless kitchens, ',heroB:'built to order',
@@ -367,7 +372,7 @@ class Component extends DCLogic {
       stickyLabel:'in your quote',stickyView:'View list',stickySend:'Send →',
       drawerTitle:'Request for Quotation',emptyT:'No items yet',emptyD:'Pick a size and tap Add to quote',namePh:'Your name',phonePh:'Callback phone',
       drawerHint:'Enter your name and phone so we can call you back, then send via LINE.',drawerErr:'Please enter a valid name and phone before sending.',
-      drawerSubmit:'Add us on LINE',drawerCall:'☎ Call',drawerClear:'Clear',drawerHint2:'Tap to add us on LINE, then send us your selected items in chat.',
+      drawerSubmit:'Add us on LINE',drawerCall:'☎ Call',drawerClear:'Clear',copyBtn:'Copy list',copiedBtn:'Copied ✓',drawerHint2:'1) Copy your list  2) Add us on LINE  3) Paste it in the chat',
       unit:'items',selWidth:'Select width (mm)',selSize:'Select size (mm)',addPrefix:'Add to quote · ',addEmpty:'Select a size first',metaD:'D ',metaH:' · H ',metaU:' mm',all:'All'} }; }
   renderVals(){
     const L=this.state.lang, t=this.T()[L];
@@ -398,7 +403,7 @@ class Component extends DCLogic {
       cats, filterChips,
       onSearch:(e)=>this.setState({q:e.target.value}),
       onName:(e)=>this.setState({name:e.target.value,err:false}), onPhone:(e)=>this.setState({phone:e.target.value,err:false}),
-      submitQuote:()=>this.submitQuote(), showErr:this.state.err,
+      submitQuote:()=>this.submitQuote(), showErr:this.state.err, copyQuote:()=>this.copyQuote(), copyLabel:(this.state.copied?t.copiedBtn:t.copyBtn),
       quoteCount:this.state.quote.length, hasQuote:this.state.quote.length>0, noQuote:this.state.quote.length===0,
       quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/ti/p/~tepktm',
       drawer:this.state.drawer, toggleDrawer:()=>this.toggleDrawer(), closeDrawer:()=>this.closeDrawer(), clearQuote:()=>this.clearQuote()
