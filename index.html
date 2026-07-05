@@ -235,10 +235,6 @@ details.dc-menu>summary::marker{content:""}
 </sc-for>
 </div>
 <div style="padding:16px 22px;border-top:1px solid #E5E4DF;display:flex;flex-direction:column;gap:10px">
-<input type="text" onInput="{{ onName }}" placeholder="{{ t.namePh }}" style="width:100%;height:46px;padding:0 14px;border:1.5px solid #E5E4DF;border-radius:11px;background:#fff;font:500 14px 'IBM Plex Sans Thai',sans-serif;outline:none"/>
-<input type="tel" inputmode="tel" onInput="{{ onPhone }}" placeholder="{{ t.phonePh }}" style="width:100%;height:46px;padding:0 14px;border:1.5px solid #E5E4DF;border-radius:11px;background:#fff;font:500 14px 'IBM Plex Mono',monospace;outline:none"/>
-<div style="font:400 11.5px/1.5 'IBM Plex Sans Thai',sans-serif;color:#8A897F;margin-top:-2px">{{ t.drawerHint }}</div>
-<sc-if value="{{ showErr }}" hint-placeholder-val="{{ false }}"><div style="font:600 12.5px/1.5 'IBM Plex Sans Thai',sans-serif;color:#B4342A;margin-top:-2px">{{ t.drawerErr }}</div></sc-if>
 <button onClick="{{ submitQuote }}" style="display:flex;align-items:center;justify-content:center;gap:9px;padding:15px;width:100%;background:#06C755;color:#fff;border:none;border-radius:11px;font:600 16px 'IBM Plex Sans Thai',sans-serif;cursor:pointer">{{ t.drawerSubmit }}</button>
 <div style="display:flex;gap:10px">
 <a href="tel:0922303772" style="flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px;border:1.5px solid #E5E4DF;border-radius:11px;text-decoration:none;color:#1C1C1A;font:600 14px 'IBM Plex Sans Thai',sans-serif">{{ t.drawerCall }}</a>
@@ -333,8 +329,8 @@ class Component extends DCLogic {
   clearQuote(){ this.save([]); this.setState({quote:[]}); }
   toggleDrawer(){ this.setState(s=>({drawer:!s.drawer})); }
   closeDrawer(){ this.setState({drawer:false}); }
-  lineHref(){ const q=this.state.quote; const nm=(this.state.name||'').trim(); const ph=(this.state.phone||'').trim(); let m='สวัสดีครับ/ค่ะ สนใจขอใบเสนอราคาสินค้า BTM\n\n'; m+='ชื่อ: '+(nm||'-')+'\nเบอร์โทรกลับ: '+(ph||'-')+'\n\n'; if(!q.length){ m+='(ยังไม่ได้เลือกรายการ)'; } else { q.forEach((e,i)=>{ m+=(i+1)+'. '+e.sku+' '+e.name+' — '+e.label+'\n'; }); } m+='\nรบกวนเสนอราคาด้วยครับ/ค่ะ'; return 'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent(m); }
-  submitQuote(){ const nm=(this.state.name||'').trim(); const ph=(this.state.phone||'').trim(); const digits=ph.replace(/\D/g,''); if(!nm||digits.length<9){ this.setState({err:true}); return; } this.setState({err:false}); const w=window.open(this.lineHref(),'_blank'); if(!w){ window.location.href=this.lineHref(); } }
+  lineHref(){ return 'https://line.me/ti/p/~tepktm'; }
+  submitQuote(){ const w=window.open(this.lineHref(),'_blank'); if(!w){ window.location.href=this.lineHref(); } }
   toggleLang(){ const l=this.state.lang==='en'?'th':'en'; try{localStorage.setItem('btm_lang',l);}catch(e){} this.setState({lang:l}); }
   T(){ return {
     th:{navProducts:'สินค้า',navSteps:'ขั้นตอน',navAbout:'เกี่ยวกับเรา',menuAbout:'เกี่ยวกับเรา & ติดต่อ',quoteBtn:'คำขอราคา',
@@ -353,7 +349,7 @@ class Component extends DCLogic {
       stickyLabel:'รายการในคำขอราคา',stickyView:'ดูรายการ',stickySend:'ส่งคำขอ →',
       drawerTitle:'คำขอใบเสนอราคา',emptyT:'ยังไม่มีรายการ',emptyD:'เลือกขนาดสินค้าแล้วกดเพิ่มลงคำขอ',namePh:'ชื่อผู้ติดต่อ',phonePh:'เบอร์โทรกลับ',
       drawerHint:'กรอกชื่อและเบอร์เพื่อให้เราติดต่อกลับ แล้วส่งทาง LINE',drawerErr:'กรุณากรอกชื่อและเบอร์โทรกลับให้ถูกต้องก่อนส่ง',
-      drawerSubmit:'ส่งคำขอทั้งหมดทาง LINE',drawerCall:'☎ โทรสั่ง',drawerClear:'ล้าง',drawerHint2:'กดส่งทาง LINE ระบบจะเปิดแชตพร้อมรายการที่เลือก ส่งถึงโรงงานได้ทันที',
+      drawerSubmit:'แอด LINE เพื่อสั่งซื้อ',drawerCall:'☎ โทรสั่ง',drawerClear:'ล้าง',drawerHint2:'กดเพื่อแอด LINE ของเรา แล้วส่งรายการที่เลือกให้เราในแชต',
       unit:'แบบ',selWidth:'เลือกความกว้าง (มม.)',selSize:'เลือกขนาด (มม.)',addPrefix:'เพิ่มลงคำขอ · ',addEmpty:'เลือกขนาดก่อน',metaD:'ลึก ',metaH:' · สูง ',metaU:' มม.',all:'ทั้งหมด'},
     en:{navProducts:'Products',navSteps:'How it works',navAbout:'About',menuAbout:'About & Contact',quoteBtn:'Quote',
       heroKicker:'STAINLESS FABRICATION · SINCE 2002',heroA:'Custom stainless kitchens, ',heroB:'built to order',
@@ -371,7 +367,7 @@ class Component extends DCLogic {
       stickyLabel:'in your quote',stickyView:'View list',stickySend:'Send →',
       drawerTitle:'Request for Quotation',emptyT:'No items yet',emptyD:'Pick a size and tap Add to quote',namePh:'Your name',phonePh:'Callback phone',
       drawerHint:'Enter your name and phone so we can call you back, then send via LINE.',drawerErr:'Please enter a valid name and phone before sending.',
-      drawerSubmit:'Send all via LINE',drawerCall:'☎ Call',drawerClear:'Clear',drawerHint2:'Tapping Send via LINE opens a chat with your selected items, ready to send to the factory.',
+      drawerSubmit:'Add us on LINE',drawerCall:'☎ Call',drawerClear:'Clear',drawerHint2:'Tap to add us on LINE, then send us your selected items in chat.',
       unit:'items',selWidth:'Select width (mm)',selSize:'Select size (mm)',addPrefix:'Add to quote · ',addEmpty:'Select a size first',metaD:'D ',metaH:' · H ',metaU:' mm',all:'All'} }; }
   renderVals(){
     const L=this.state.lang, t=this.T()[L];
@@ -404,7 +400,7 @@ class Component extends DCLogic {
       onName:(e)=>this.setState({name:e.target.value,err:false}), onPhone:(e)=>this.setState({phone:e.target.value,err:false}),
       submitQuote:()=>this.submitQuote(), showErr:this.state.err,
       quoteCount:this.state.quote.length, hasQuote:this.state.quote.length>0, noQuote:this.state.quote.length===0,
-      quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/R/oaMessage/@sevenrabbit/?'+encodeURIComponent('สวัสดีครับ/ค่ะ สอบถามสินค้าสแตนเลส BTM'),
+      quoteItems, quoteHref:this.lineHref(), lineContact:'https://line.me/ti/p/~tepktm',
       drawer:this.state.drawer, toggleDrawer:()=>this.toggleDrawer(), closeDrawer:()=>this.closeDrawer(), clearQuote:()=>this.clearQuote()
     };
   }
